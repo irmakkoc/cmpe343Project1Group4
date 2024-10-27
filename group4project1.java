@@ -67,7 +67,7 @@ public class group4project1 {
                     TransposeMatrix();
                     break;
                 case "B":
-                    // Inverse();
+                    MatrixInverse();
                     break;
                 case "C":
                     MatrixMultip();
@@ -149,140 +149,252 @@ public class group4project1 {
             System.out.println();
         }
     }
+    public static void MatrixInverse() {
 
-    		public static void MatrixMultip() {
-			Scanner input = new Scanner(System.in);
-			
-			System.out.println("According to the rules of matrix multiplaction the column size of the first matrix and the row size of the second matrix must be same.");
-			System.out.println("The size of the matricies should be between 2 and 5.");
-			
-			int rows=0;
-			int columns=0;
-			int columns2=0;
-			
-			while(rows<2 || rows>5) {
-				try {
-					System.out.println("Enter the First Matrix's Row Number : ");
-					rows = input.nextInt();
-					if(rows<2 || rows>5) {
-						System.out.println("Please enter a number between 2 and 5");
-					}
-				} catch(InputMismatchException e) {
-					System.out.println("Invalid input please try again");
-					input.next();
-				}
-			}
-			
-			while(columns<2 || columns>5) {
-				try {
-					System.out.println("Enter First Matrix's Column and Second Matrix's Row: ");
-					columns = input.nextInt();
-					if(columns<2 || columns>5) {
-						System.out.println("Please enter a number between 2 and 5");
-					}
-				} catch(InputMismatchException e) {
-					System.out.println("Invalid input please try again");
-					input.next();
-				}
-			}
-			
-			while(columns2<2 || columns2>5) {
-				try {
-					System.out.println("Enter Second Matrix's Column Number: ");
-					columns2 = input.nextInt();
-					if(columns2<2 || columns2>5) {
-						System.out.println("Please enter a number between 2 and 5");
-					}
-				} catch(InputMismatchException e) {
-					System.out.println("Invalid input please try again");
-					input.next();
-				}
-			}
-			double[][] matrix1 = new double[rows][columns];
-	        double[][] matrix2 = new double[columns][columns2];
-	        
-	        System.out.println("Please enter the elements for your first matrix");
-	        for(int i=0; i<rows; i++) {
-	        	for(int j=0; j<columns; j++) {
-	        		while(true) {
-	        			try {
-	        				matrix1[i][j] = input.nextDouble();
-	        				break;
-	        			} catch(InputMismatchException e) {
-	        				System.out.println("You must enter a double number. Try again. ");
-	        				input.next();
-	        			}
-	        		}
-	        	}
-	        		
-	        	
-	        }
-	        System.out.println("Your first matrix is: ");
-	        for(int i=0; i<rows; i++) {
-	        	for(int j=0; j<columns; j++) {
-	        		System.out.print(matrix1[i][j] + " ");
-	        	}
-	        	System.out.println();
-	        	
-	        }
-	        
-	        System.out.println("Please enter the elements for your second matrix");
-	        for(int i=0; i<columns; i++) {
-	        	for(int j=0; j<columns2; j++) {
-	        		while(true) {
-	        			try {
-	        				matrix2[i][j] = input.nextDouble();
-	        				break;
-	        			} catch(InputMismatchException e) {
-	        				System.out.println("You must enter a double number. Try again. ");
-	        				input.next();
-	        			}
-	        		}
-	        	}
-	        }
-	        
-	        System.out.println("Your second matrix is: ");
-	        for(int i=0; i<columns; i++) {
-	        	for(int j=0; j<columns2; j++) {
-	        		
-	        		System.out.print(matrix2[i][j] + " ");
-	        	}
-	        	System.out.println();
-	        	
-	        }
-	        
+        Scanner scanner = new Scanner(System.in);
 
-	        double[][] resultMatrix = multiply(matrix1,matrix2);
-	        
-	        System.out.println("Resultant Matrix:");
-	        for (int i = 0; i < rows; i++) {
-	            for (int j = 0; j < columns2; j++) {
-	                System.out.print(resultMatrix[i][j] + " ");
-	            }
-	            System.out.println();
-	        }
-	        
-	        
-		}
-		
-		public static double[][] multiply(double[][] matrix1, double[][] matrix2) {
-	        int rows1 = matrix1.length;
-	        int columns1 = matrix1[0].length;
-	        int columns2 = matrix2[0].length;
-	        double[][] result = new double[rows1][columns2];
+        System.out.println("Matrix's Row: ");
+        int rows = scanner.nextInt();
+        System.out.println("Matrix's Column: ");
+        int columns = scanner.nextInt();
+        
+        float[][] matrix = new float[rows][columns];
+    
+    if (rows != columns) {
+            System.out.println("Only square matrix allowed for inverse calculation. Please enter a square matrix.");
+        }else{
+      
+      System.out.println("Enter elements for the first matrix:");
+      for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+          matrix[i][j] = scanner.nextFloat();
+        }
+      }
+        
+      float[][] adjointMatrix = adjoint(matrix); 
+      float determinantMatrix = determinant(matrix, rows);
+      float[][] inverseMatrix = divide(adjointMatrix,determinantMatrix);
+      System.out.println("Inverse Matrix:");
+      for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    System.out.print(inverseMatrix[i][j] + " ");
+                }
+                System.out.println();
+            }
+    }
+    }
+  
+  public static float[][] adjoint(float[][] matrix) {
+        float[][] adjoint = new float[matrix.length][matrix.length];
 
-	        for (int i = 0; i < rows1; i++) {
-	            for (int j = 0; j < columns2; j++) {
-	                result[i][j] = 0;
-	                for (int k = 0; k < columns1; k++) {
-	                    result[i][j] += (matrix1[i][k]) * (matrix2[k][j]);
-	                }
-	            }
-	        }
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                adjoint[i][j] = determinant(cofactor(matrix, i, j), (matrix.length) -1);
+                if ((i + j) % 2 == 1) {
+                    adjoint[i][j] = -adjoint[i][j];
+                    }
+                }
+            }
+        return transpose(adjoint);
+    }
 
-	        return result;
-	        
-	    }
+    public static float[][] cofactor(float matrix[][], int row, int column) {
+        float[][] temp = new float[matrix.length - 1][matrix.length - 1];
+        int i = 0, j = 0;
+
+        for (int r = 0; r < matrix.length; r++) {
+            if (r == row) continue;
+            for (int c = 0; c < matrix.length; c++) {
+                if (c == column) continue;
+                temp[i][j++] = matrix[r][c];
+                if (j == matrix.length - 1) {
+                    j = 0;
+                    i++;
+                }
+            }
+        }
+        return temp;
+    }
+
+    public static float determinant(float matrix[][], int d) {
+        if (d == 1) {
+            return matrix[0][0];
+            }
+        float determinantResult = 0;
+        int sign = 1;
+
+        for (int i = 0; i < d; i++) {
+            float[][] temp = new float[d - 1][d - 1];
+            determinantResult += sign * matrix[0][i] * determinant(cofactor(matrix, 0, i), d - 1);
+            sign = -sign;
+        }
+        return determinantResult;
+    }
+
+    public static float[][] divide(float[][] matrix1, float scalar) {
+        int rows1 = matrix1.length;
+        int columns1 = matrix1[0].length;
+        float[][] result = new float[rows1][columns1];
+
+        for (int i = 0; i < rows1; i++) {
+          for (int j = 0; j < columns1; j++) {
+              result[i][j] += (matrix1[i][j]) / (scalar);
+                
+          }
+        }
+
+        return result;
+        
+    }
+    public static float[][] transpose(float[][] matrix) {
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        float[][] result = new float[columns][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                result[j][i] = matrix[i][j];
+            }
+        }
+
+        return result;
+        
+    }
+
+
+    public static void MatrixMultip() {
+      Scanner input = new Scanner(System.in);
+      
+      System.out.println("According to the rules of matrix multiplaction the column size of the first matrix and the row size of the second matrix must be same.");
+      System.out.println("The size of the matricies should be between 2 and 5.");
+      
+      int rows=0;
+      int columns=0;
+      int columns2=0;
+      
+      while(rows<2 || rows>5) {
+        try {
+          System.out.println("Enter the First Matrix's Row Number : ");
+          rows = input.nextInt();
+          if(rows<2 || rows>5) {
+            System.out.println("Please enter a number between 2 and 5");
+          }
+        } catch(InputMismatchException e) {
+          System.out.println("Invalid input please try again");
+          input.next();
+        }
+      }
+      
+      while(columns<2 || columns>5) {
+        try {
+          System.out.println("Enter First Matrix's Column and Second Matrix's Row: ");
+          columns = input.nextInt();
+          if(columns<2 || columns>5) {
+            System.out.println("Please enter a number between 2 and 5");
+          }
+        } catch(InputMismatchException e) {
+          System.out.println("Invalid input please try again");
+          input.next();
+        }
+      }
+      
+      while(columns2<2 || columns2>5) {
+        try {
+          System.out.println("Enter Second Matrix's Column Number: ");
+          columns2 = input.nextInt();
+          if(columns2<2 || columns2>5) {
+            System.out.println("Please enter a number between 2 and 5");
+          }
+        } catch(InputMismatchException e) {
+          System.out.println("Invalid input please try again");
+          input.next();
+        }
+      }
+      double[][] matrix1 = new double[rows][columns];
+          double[][] matrix2 = new double[columns][columns2];
+          
+          System.out.println("Please enter the elements for your first matrix");
+          for(int i=0; i<rows; i++) {
+            for(int j=0; j<columns; j++) {
+              while(true) {
+                try {
+                  matrix1[i][j] = input.nextDouble();
+                  break;
+                } catch(InputMismatchException e) {
+                  System.out.println("You must enter a double number. Try again. ");
+                  input.next();
+                }
+              }
+            }
+              
+            
+          }
+          System.out.println("Your first matrix is: ");
+          for(int i=0; i<rows; i++) {
+            for(int j=0; j<columns; j++) {
+              System.out.print(matrix1[i][j] + " ");
+            }
+            System.out.println();
+            
+          }
+          
+          System.out.println("Please enter the elements for your second matrix");
+          for(int i=0; i<columns; i++) {
+            for(int j=0; j<columns2; j++) {
+              while(true) {
+                try {
+                  matrix2[i][j] = input.nextDouble();
+                  break;
+                } catch(InputMismatchException e) {
+                  System.out.println("You must enter a double number. Try again. ");
+                  input.next();
+                }
+              }
+            }
+          }
+          
+          System.out.println("Your second matrix is: ");
+          for(int i=0; i<columns; i++) {
+            for(int j=0; j<columns2; j++) {
+              
+              System.out.print(matrix2[i][j] + " ");
+            }
+            System.out.println();
+            
+          }
+          
+
+          double[][] resultMatrix = multiply(matrix1,matrix2);
+          
+          System.out.println("Resultant Matrix:");
+          for (int i = 0; i < rows; i++) {
+              for (int j = 0; j < columns2; j++) {
+                  System.out.print(resultMatrix[i][j] + " ");
+              }
+              System.out.println();
+          }
+          
+          
+    }
+    
+    public static double[][] multiply(double[][] matrix1, double[][] matrix2) {
+          int rows1 = matrix1.length;
+          int columns1 = matrix1[0].length;
+          int columns2 = matrix2[0].length;
+          double[][] result = new double[rows1][columns2];
+
+          for (int i = 0; i < rows1; i++) {
+              for (int j = 0; j < columns2; j++) {
+                  result[i][j] = 0;
+                  for (int k = 0; k < columns1; k++) {
+                      result[i][j] += (matrix1[i][k]) * (matrix2[k][j]);
+                  }
+              }
+          }
+
+          return result;
+          
+      }
 
     public static void ElementWiseMatrixMultip() {
         Scanner input = new Scanner(System.in);
@@ -399,4 +511,3 @@ public class group4project1 {
     }
 
 }
-
