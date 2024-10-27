@@ -17,7 +17,7 @@ public class group4project1 {
                     matrixOperations();
                     break;
                 case "C":
-                    textEncryptionDecryption();
+                    textEncryptionDecryption(scanner);
                     break;
                 case "D":
                     ticTacToe();
@@ -256,8 +256,100 @@ public class group4project1 {
 
     }
 
-    public static void textEncryptionDecryption() {
-        System.out.println("Text Encryption/Decryption.");
+    public static void textEncryptionDecryption(Scanner scanner) {
+        boolean submenuActive = true;
+        while (submenuActive) {
+            System.out.println("\nText Encryption/Decryption.");
+            System.out.println("Please select the operation:");
+            System.out.println("[1] Encrypt Text");
+            System.out.println("[2] Decrypt Text");
+            System.out.println("[3] Return to the Main Menu");
+
+            String option = scanner.nextLine();
+            switch (option) {
+                case "1":
+                    
+                    System.out.print("Enter the shift value (-26 to 26): ");
+                    int shiftEncrypt = getShiftValue(scanner);
+                    if (shiftEncrypt != Integer.MIN_VALUE) {
+                        System.out.print("Enter the text to encrypt: ");
+                        String textToEncrypt = scanner.nextLine();
+                        String encryptedText = encrypt(textToEncrypt, shiftEncrypt);
+                        System.out.println("Encrypted Text: " + encryptedText);
+                    }
+                    break;
+                case "2":
+                    
+                    System.out.print("Enter the shift value (-26 to 26): ");
+                    int shiftDecrypt = getShiftValue(scanner);
+                    if (shiftDecrypt != Integer.MIN_VALUE) {
+                        System.out.print("Enter the text to decrypt: ");
+                        String textToDecrypt = scanner.nextLine();
+                        String decryptedText = decrypt(textToDecrypt, shiftDecrypt);
+                        System.out.println("Decrypted Text: " + decryptedText);
+                    }
+                    break;
+                case "3":
+                    
+                    submenuActive = false;
+                    break;
+                default:
+                    System.out.println("Invalid option, please try again.");
+            }
+        }
+    }
+
+
+    public static String encrypt(String message, int shiftKey) {
+        final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+        String cipherText = "";
+        
+        for (int ii = 0; ii < message.length(); ii++) {
+            char currentChar = message.charAt(ii);
+            boolean isUpperCase = Character.isUpperCase(currentChar); 
+            
+        
+            currentChar = Character.toLowerCase(currentChar);
+            
+            if (ALPHABET.indexOf(currentChar) != -1) { 
+                int charPosition = ALPHABET.indexOf(currentChar);
+                int keyVal = (shiftKey + charPosition) % 26;
+                if (keyVal < 0) {
+                    keyVal = ALPHABET.length() + keyVal; 
+                }
+                char replaceVal = ALPHABET.charAt(keyVal);
+                
+            
+                cipherText += isUpperCase ? Character.toUpperCase(replaceVal) : replaceVal;
+            } else {
+                cipherText += currentChar;
+            }
+        }
+        return cipherText;
+    }
+    
+
+    public static String decrypt(String cipherText, int shiftKey) {
+        return encrypt(cipherText, -shiftKey);
+    }
+
+
+    public static int getShiftValue(Scanner scanner) {
+        try {
+            int shift = scanner.nextInt();
+            scanner.nextLine(); 
+            if (shift < -26 || shift > 26) {
+                 System.out.println("Error: Please enter a valid integer shift value in the range [-26, 26].");
+
+                return Integer.MIN_VALUE; 
+            }
+            return shift;
+        } catch (Exception e) {
+             System.out.println("Error: Please enter a valid integer shift value in the range [-26, 26].");
+
+            scanner.nextLine(); 
+            return Integer.MIN_VALUE;
+        }
     }
 
     public static void ticTacToe() {
