@@ -67,7 +67,7 @@ public class group4project1 {
 	for(int i = 0; i < size; i++){
 		while(true){
 			try{
-				System.out.println("Enter the " + (i+1) + ". element: ");
+				System.out.println("Enter the element " + (i+1) + ": ");
 				array[i] = scanner.nextDouble();
 				break;
 			} catch(InputMismatchException e){
