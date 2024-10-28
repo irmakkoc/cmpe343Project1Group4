@@ -17,7 +17,7 @@ public class group4project1 {
                     matrixOperations();
                     break;
                 case "C":
-                    textEncryptionDecryption(scanner);
+                    textEncryptionDecryption();
                     break;
                 case "D":
                     ticTacToe();
@@ -46,8 +46,10 @@ public class group4project1 {
     public static void statisticalInformation() {
 	Scanner scanner = new Scanner(System.in);
         System.out.println("You chose the Statistical Information about an array. \n");
-
+    boolean continueCalculating = true;
 	int size = 0;
+	while(continueCalculating) {
+		
 	while(true){
 		try{
 			System.out.println("How many numbers you want to enter: ");
@@ -78,7 +80,7 @@ public class group4project1 {
 	double median = calculateMedian(array);
 	double arithmeticMean = calculateArithmeticMean(array);
 
-	System.out.printf("Median: %.2f\n", median);
+	System.out.printf("\nMedian: %.2f\n", median);
         System.out.printf("Arithmetic Mean: %.2f\n", arithmeticMean);
   	
 	if (allPositive(array)) {
@@ -94,9 +96,20 @@ public class group4project1 {
         } else {
             System.out.println("Harmonic mean cannot be calculated because there are non-positive numbers in the array.");
         }
-
-	System.out.println("\nReturning to the main menu. Thanks for using.");
-	scanner.nextLine(); //buffer temizliyor
+	scanner.nextLine();
+	System.out.println("\nPress A to calculate another array. Press B to return to main menu.");
+	String choice = scanner.nextLine().toUpperCase();
+	
+	if(choice.equals("A")) {
+		continueCalculating = true;
+	}else if(choice.equals("B")) {
+		System.out.println("\nReturning to main menu. Thanks for using.\n");
+		continueCalculating = false;
+	}else {
+		System.out.println("Invalid input. Returning to main menu.");
+		continueCalculating = false;
+	}
+	}
 
 }
 
@@ -615,101 +628,10 @@ public static double harmonicMeanHelper(double[] array, int size, int index) {
 
     }
 
-     public static void textEncryptionDecryption(Scanner scanner) {
-        boolean submenuActive = true;
-        while (submenuActive) {
-            System.out.println("\nText Encryption/Decryption.");
-            System.out.println("Please select the operation:");
-            System.out.println("[1] Encrypt Text");
-            System.out.println("[2] Decrypt Text");
-            System.out.println("[3] Return to the Main Menu");
-
-            String option = scanner.nextLine();
-            switch (option) {
-                case "1":
-
-                    System.out.print("Enter the shift value (-26 to 26): ");
-                    int shiftEncrypt = getShiftValue(scanner);
-                    if (shiftEncrypt != Integer.MIN_VALUE) {
-                        System.out.print("Enter the text to encrypt: ");
-                        String textToEncrypt = scanner.nextLine();
-                        String encryptedText = encrypt(textToEncrypt, shiftEncrypt);
-                        System.out.println("Encrypted Text: " + encryptedText);
-                    }
-                    break;
-                case "2":
-
-                    System.out.print("Enter the shift value (-26 to 26): ");
-                    int shiftDecrypt = getShiftValue(scanner);
-                    if (shiftDecrypt != Integer.MIN_VALUE) {
-                        System.out.print("Enter the text to decrypt: ");
-                        String textToDecrypt = scanner.nextLine();
-                        String decryptedText = decrypt(textToDecrypt, shiftDecrypt);
-                        System.out.println("Decrypted Text: " + decryptedText);
-                    }
-                    break;
-                case "3":
-
-                    submenuActive = false;
-                    break;
-                default:
-                    System.out.println("Invalid option, please try again.");
-            }
-        }
+    public static void textEncryptionDecryption() {
+        System.out.println("Text Encryption/Decryption.");
     }
 
-
-    public static String encrypt(String message, int shiftKey) {
-        final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-        String cipherText = "";
-
-        for (int ii = 0; ii < message.length(); ii++) {
-            char currentChar = message.charAt(ii);
-            boolean isUpperCase = Character.isUpperCase(currentChar); 
-
-
-            currentChar = Character.toLowerCase(currentChar);
-
-            if (ALPHABET.indexOf(currentChar) != -1) { 
-                int charPosition = ALPHABET.indexOf(currentChar);
-                int keyVal = (shiftKey + charPosition) % 26;
-                if (keyVal < 0) {
-                    keyVal = ALPHABET.length() + keyVal; 
-                }
-                char replaceVal = ALPHABET.charAt(keyVal);
-
-
-                cipherText += isUpperCase ? Character.toUpperCase(replaceVal) : replaceVal;
-            } else {
-                cipherText += currentChar;
-            }
-        }
-        return cipherText;
-    }
-
-
-    public static String decrypt(String cipherText, int shiftKey) {
-        return encrypt(cipherText, -shiftKey);
-    }
-
-
-    public static int getShiftValue(Scanner scanner) {
-        try {
-            int shift = scanner.nextInt();
-            scanner.nextLine(); 
-            if (shift < -26 || shift > 26) {
-                 System.out.println("Error: Please enter a valid integer shift value in the range [-26, 26].");
-
-                return Integer.MIN_VALUE; 
-            }
-            return shift;
-        } catch (Exception e) {
-             System.out.println("Error: Please enter a valid integer shift value in the range [-26, 26].");
-
-            scanner.nextLine(); 
-            return Integer.MIN_VALUE;
-        }
-    }
     public static void ticTacToe() {
         System.out.println("Tic-Tac-Toe Game.");
     }
