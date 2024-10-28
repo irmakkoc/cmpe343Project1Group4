@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 
 public class group4project1 {
     public static void main(String[] args) {
+        drawASCIIArt();
         Scanner scanner = new Scanner(System.in);
         boolean working = true;
         while (working) {
@@ -683,6 +684,37 @@ public static void MatrixMultip() {
 
     public static void ticTacToe() {
         System.out.println("Tic-Tac-Toe Game.");
+    }
+
+    public static void drawASCIIArt() {
+    	System.out.println(" Group 4\n "
+    			+ "Serkan Açar\n "
+    			+ "Aleyna İslamoğlu\n "
+    			+ "Irmak Koç\n "
+    			+ "Burak Arslan\n "
+    			+ "Eren Can Günel\n "
+    			+"ASCII Robot Welcomes You!");
+        System.out.println("            __ __ __ __");
+        System.out.println("            |          |");
+        System.out.println("            |   O  O   |");
+        System.out.println("            |          |");
+        System.out.println("            |   ----   |");
+        System.out.println("            |          |");
+        System.out.println("            |____vv____|");
+        System.out.println("            |          |");
+        System.out.println("            |          |");
+        System.out.println("0-----------|          |--------------0");
+        System.out.println("            |          |");
+        System.out.println("            |          |");
+        System.out.println("            |          |");
+        System.out.println("            ------------");
+        System.out.println("              |      | ");
+        System.out.println("              |      | ");
+        System.out.println("              |      | ");
+        System.out.println("              |      | ");
+        System.out.println("              |      | ");
+        System.out.println("              |      | ");
+        System.out.println("              -      - ");
     }
 
 }
