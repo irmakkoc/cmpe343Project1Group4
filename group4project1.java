@@ -17,7 +17,7 @@ public class group4project1 {
                     matrixOperations();
                     break;
                 case "C":
-                    textEncryptionDecryption();
+                    textEncryptionDecryption(scanner);
                     break;
                 case "D":
                     ticTacToe();
