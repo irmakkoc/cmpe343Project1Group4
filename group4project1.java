@@ -757,8 +757,99 @@ public static void MatrixMultip() {
         }
     }
 
-    public static void ticTacToe() {
+        public static void ticTacToe() {
         System.out.println("Tic-Tac-Toe Game.");
+        Scanner sc = new Scanner(System.in);
+        boolean oyunBittimi = false;
+        boolean oyunDevam = true;
+        char tahta[][]=new char[4][4];
+        tahta[0][0]='+';
+        tahta[1][0]='1';
+        tahta[2][0]='2';
+        tahta[3][0]='3';
+        tahta[0][1]='1';
+        tahta[0][2]='2';
+        tahta[0][3]='3';
+        char kullanici = 'X'; // Baslangicta X oyuncusu
+        for (int i = 1; i < 4; i++) {
+            for (int j = 1; j < 4; j++) {
+                tahta[i][j] = '-'; // Bos hucrelere '-' koy
+            }
+        }
+        while(!oyunBittimi){
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    System.out.print(tahta[i][j] + " ");
+                }
+                System.out.println();
+            }
+            System.out.println("Player " + kullanici + ", Enter rows and columns (1-3):");
+            int row = sc.nextInt();
+            int col = sc.nextInt();
+            if(row>=1 && row<=3 && col>=1 && col<=3){//Dogru giris yapildiysa oyun baslar
+                if(tahta[row][col] == '-'){
+                    tahta[row][col] = kullanici;
+                    if(kontrolKazanc(tahta,kullanici)){//Kazanan var mi kontrolu
+                        for (int i = 0; i < 4; i++) {
+                            for (int j = 0; j < 4; j++) {
+                                System.out.print(tahta[i][j] + " ");
+                            }
+                            System.out.println();
+                        }
+                        System.out.println("Congratulations! Player " + kullanici + " win!");
+                        oyunBittimi = true;
+                    }else if(kontrolBeraberlik(tahta)){// Kazanan yoksa beraberlik var mi kontrolu
+                        for (int i = 0; i < 4; i++) {
+                            for (int j = 0; j < 4; j++) {
+                                System.out.print(tahta[i][j] + " ");
+                            }
+                            System.out.println();
+                        }
+                        System.out.println("The game is a draw!");
+                        oyunBittimi = true;
+                    }else {//Kazanan veya beraberlik yoksa oyuncu sirasi degisir
+                        if(kullanici == 'X'){
+                            kullanici = 'O';
+                        }else{
+                            kullanici = 'X';
+                        }
+                    }
+                }else {//Girilen kutu dolu mu kontrolu
+                    System.out.println("This cell is full! Select another cell.");
+                }
+            }
+            else{//Gecerli aralikta deger girildi mi sorgusu
+                System.out.println("Invalid value entered.");
+            }
+        }
+    
+    }
+    public static boolean kontrolKazanc(char tahta[][],char kullanici) {//kazanc kosullarini kontrol eden fonksiyon
+        for (int i = 1; i < 4; i++) {
+            if (tahta[i][1] == kullanici && tahta[i][2] == kullanici && tahta[i][3] == kullanici) {
+                return true;
+            }
+            if (tahta[1][i] == kullanici && tahta[2][i] == kullanici && tahta[3][i] == kullanici) {
+                return true;
+            }
+        }
+        if (tahta[1][1] == kullanici && tahta[2][2] == kullanici && tahta[3][3] == kullanici) {
+            return true;
+        }
+        if (tahta[1][3] == kullanici && tahta[2][2] == kullanici && tahta[3][1] == kullanici) {
+            return true;
+        }
+        return false;
+    }
+    public static boolean kontrolBeraberlik(char tahta[][]) {//Beraberlik kontrol eden fonksiyon
+        for (int i = 1; i < 4; i++) {
+            for (int j = 1; j < 4; j++) {
+                if (tahta[i][j] == '-') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void drawASCIIArt() {
