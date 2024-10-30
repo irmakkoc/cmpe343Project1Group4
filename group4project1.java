@@ -32,6 +32,7 @@ public class group4project1 {
             }
         }
         scanner.close();
+        clearConsole();
     }
 
     public static void printMenu() {
@@ -45,6 +46,7 @@ public class group4project1 {
     }
 
     public static void statisticalInformation() {
+        clearConsole();
   Scanner scanner = new Scanner(System.in);
         System.out.println("You chose the Statistical Information about an array. \n");
     boolean continueCalculating = true;
@@ -102,6 +104,7 @@ public class group4project1 {
   String choice = scanner.nextLine().toUpperCase();
   
   if(choice.equals("A")) {
+      clearConsole();
     continueCalculating = true;
   }else if(choice.equals("B")) {
     System.out.println("\nReturning to main menu. Thanks for using.\n");
@@ -111,7 +114,7 @@ public class group4project1 {
     continueCalculating = false;
   }
   }
-
+clearConsole();
 }
 
 public static void sortArray(double[] array){
@@ -175,12 +178,14 @@ public static double harmonicMeanHelper(double[] array, int size, int index) {
 
 
     public static void matrixOperations() {
+        clearConsole();
         System.out.println("Matrix Operations.");
 
         boolean inSubmenu = true;
         Scanner scan = new Scanner(System.in);
 
         while (inSubmenu) {
+            clearConsole();
             System.out.println("Please select an operation");
             System.out.println("Enter 'A' for Transpose");
             System.out.println("Enter 'B' for Inverse");
@@ -679,6 +684,7 @@ public static void MatrixMultip() {
     }
 
    public static void textEncryptionDecryption(Scanner scanner) {
+       clearConsole();
         boolean submenuActive = true;
         while (submenuActive) {
             System.out.println("\nText Encryption/Decryption.");
@@ -758,6 +764,7 @@ public static void MatrixMultip() {
     }
 
         public static void ticTacToe() {
+            clearConsole();
         System.out.println("Tic-Tac-Toe Game.");
         Scanner sc = new Scanner(System.in);
         boolean oyunBittimi = false;
@@ -850,6 +857,19 @@ public static void MatrixMultip() {
             }
         }
         return true;
+    }
+
+    public static void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("Console couldn't be cleared.");
+        }
     }
 
     public static void drawASCIIArt() {
