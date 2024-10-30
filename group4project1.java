@@ -61,7 +61,7 @@ public class group4project1 {
         break;
       else
         System.out.println("The size of the array must be a positive number. Please try again: ");
-    } catch (InputMismatchException e) { // harf girilmesini engelliyor
+    } catch (InputMismatchException e) { 
       System.out.println("You should enter a number. Please try a positive number: ");
       scanner.next();
   }
@@ -777,10 +777,10 @@ public static void MatrixMultip() {
         tahta[0][1]='1';
         tahta[0][2]='2';
         tahta[0][3]='3';
-        char kullanici = 'X'; // Baslangicta X oyuncusu
+        char kullanici = 'X'; 
         for (int i = 1; i < 4; i++) {
             for (int j = 1; j < 4; j++) {
-                tahta[i][j] = '-'; // Bos hucrelere '-' koy
+                tahta[i][j] = '-'; 
             }
         }
         while(!oyunBittimi){
@@ -793,10 +793,10 @@ public static void MatrixMultip() {
             System.out.println("Player " + kullanici + ", Enter rows and columns (1-3):");
             int row = sc.nextInt();
             int col = sc.nextInt();
-            if(row>=1 && row<=3 && col>=1 && col<=3){//Dogru giris yapildiysa oyun baslar
+            if(row>=1 && row<=3 && col>=1 && col<=3){
                 if(tahta[row][col] == '-'){
                     tahta[row][col] = kullanici;
-                    if(kontrolKazanc(tahta,kullanici)){//Kazanan var mi kontrolu
+                    if(kontrolKazanc(tahta,kullanici)){
                         for (int i = 0; i < 4; i++) {
                             for (int j = 0; j < 4; j++) {
                                 System.out.print(tahta[i][j] + " ");
@@ -805,7 +805,7 @@ public static void MatrixMultip() {
                         }
                         System.out.println("Congratulations! Player " + kullanici + " win!");
                         oyunBittimi = true;
-                    }else if(kontrolBeraberlik(tahta)){// Kazanan yoksa beraberlik var mi kontrolu
+                    }else if(kontrolBeraberlik(tahta)){
                         for (int i = 0; i < 4; i++) {
                             for (int j = 0; j < 4; j++) {
                                 System.out.print(tahta[i][j] + " ");
@@ -814,24 +814,24 @@ public static void MatrixMultip() {
                         }
                         System.out.println("The game is a draw!");
                         oyunBittimi = true;
-                    }else {//Kazanan veya beraberlik yoksa oyuncu sirasi degisir
+                    }else {
                         if(kullanici == 'X'){
                             kullanici = 'O';
                         }else{
                             kullanici = 'X';
                         }
                     }
-                }else {//Girilen kutu dolu mu kontrolu
+                }else {
                     System.out.println("This cell is full! Select another cell.");
                 }
             }
-            else{//Gecerli aralikta deger girildi mi sorgusu
+            else{
                 System.out.println("Invalid value entered.");
             }
         }
     
     }
-    public static boolean kontrolKazanc(char tahta[][],char kullanici) {//kazanc kosullarini kontrol eden fonksiyon
+    public static boolean kontrolKazanc(char tahta[][],char kullanici) {
         for (int i = 1; i < 4; i++) {
             if (tahta[i][1] == kullanici && tahta[i][2] == kullanici && tahta[i][3] == kullanici) {
                 return true;
@@ -848,7 +848,7 @@ public static void MatrixMultip() {
         }
         return false;
     }
-    public static boolean kontrolBeraberlik(char tahta[][]) {//Beraberlik kontrol eden fonksiyon
+    public static boolean kontrolBeraberlik(char tahta[][]) {
         for (int i = 1; i < 4; i++) {
             for (int j = 1; j < 4; j++) {
                 if (tahta[i][j] == '-') {
@@ -873,13 +873,13 @@ public static void MatrixMultip() {
     }
 
     public static void drawASCIIArt() {
-    	System.out.println(" Group 4\n "
-    			+ "Serkan Açar\n "
-    			+ "Aleyna İslamoğlu\n "
-    			+ "Irmak Koç\n "
-    			+ "Burak Arslan\n "
-    			+ "Eren Can Günel\n "
-    			+"ASCII Robot Welcomes You!");
+      System.out.println(" Group 4\n "
+          + "Serkan Açar\n "
+          + "Aleyna İslamoğlu\n "
+          + "Irmak Koç\n "
+          + "Burak Arslan\n "
+          + "Eren Can Günel\n "
+          +"ASCII Robot Welcomes You!");
         System.out.println("            __ __ __ __");
         System.out.println("            |          |");
         System.out.println("            |   O  O   |");
