@@ -185,7 +185,7 @@ public static double harmonicMeanHelper(double[] array, int size, int index) {
         Scanner scan = new Scanner(System.in);
 
         while (inSubmenu) {
-            clearConsole();
+            
             System.out.println("Please select an operation");
             System.out.println("Enter 'A' for Transpose");
             System.out.println("Enter 'B' for Inverse");
@@ -215,6 +215,7 @@ public static double harmonicMeanHelper(double[] array, int size, int index) {
                     break;
             }
         }
+        clearConsole();
     }
 
     public static void TransposeMatrix() {
