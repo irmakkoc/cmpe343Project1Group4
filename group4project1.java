@@ -479,7 +479,7 @@ public static void MatrixMultip() {
             break;
           }
           else {
-            System.out.println("Please enter a positive number between 2 and 5");
+            System.out.println("Please enter a positive number!");
           }
         } catch(InputMismatchException e) {
           System.out.println("Invalid input please try again");
