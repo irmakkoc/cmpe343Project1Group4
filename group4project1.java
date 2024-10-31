@@ -770,6 +770,7 @@ public static void MatrixMultip() {
         boolean oyunBittimi = false;
         boolean oyunDevam = true;
         char tahta[][]=new char[4][4];
+        int turSayisi = 0;
         tahta[0][0]='+';
         tahta[1][0]='1';
         tahta[2][0]='2';
@@ -796,6 +797,7 @@ public static void MatrixMultip() {
             if(row>=1 && row<=3 && col>=1 && col<=3){
                 if(tahta[row][col] == '-'){
                     tahta[row][col] = kullanici;
+                    turSayisi++;
                     if(kontrolKazanc(tahta,kullanici)){
                         for (int i = 0; i < 4; i++) {
                             for (int j = 0; j < 4; j++) {
@@ -804,6 +806,7 @@ public static void MatrixMultip() {
                             System.out.println();
                         }
                         System.out.println("Congratulations! Player " + kullanici + " win!");
+                        System.out.println("There have been " + turSayisi + " turns" );
                         oyunBittimi = true;
                     }else if(kontrolBeraberlik(tahta)){
                         for (int i = 0; i < 4; i++) {
@@ -813,6 +816,7 @@ public static void MatrixMultip() {
                             System.out.println();
                         }
                         System.out.println("The game is a draw!");
+                        System.out.println("There have been " + turSayisi + " turns" );
                         oyunBittimi = true;
                     }else {
                         if(kullanici == 'X'){
