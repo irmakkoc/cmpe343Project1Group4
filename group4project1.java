@@ -254,15 +254,17 @@ public static double harmonicMeanHelper(double[] array, int size, int index) {
         System.out.println("Please enter the elements for your matrix:");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                while (true) {
-                    try {
-                        matrix[i][j] = input.nextDouble();
-                        break;
-                    } catch (InputMismatchException e) {
-                        System.out.println("You must enter a double number. Try again.");
-                        input.next();
-                    }
-                }
+                boolean validInput;
+                do {
+                  try {
+                    matrix[i][j] = input.nextDouble();
+                    validInput=true;
+                  } catch(InputMismatchException e) {
+                    System.out.println("You must enter a double number. Try again. ");
+                    input.next();
+                    validInput = false;
+                  }
+                } while (!validInput);
             }
         }
 
@@ -328,13 +330,22 @@ public static double harmonicMeanHelper(double[] array, int size, int index) {
         float[][] matrix = new float[rows][columns];
     
     if (rows != columns) {
-            System.out.println("Only square matrix allowed for inverse calculation. Please enter a square matrix.");
+            System.out.println("Only square matrix is allowed for inverse calculation. Please enter a square matrix.");
         }else{
       
       System.out.println("Enter elements for the first matrix:");
       for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-          matrix[i][j] = scanner.nextFloat();
+          do {
+              try {
+                matrix[i][j] = scanner.nextFloat();
+                validInput=true;
+              } catch(InputMismatchException e) {
+                System.out.println("You must enter a double number. Try again. ");
+                scanner.next();
+                validInput = false;
+              }
+            } while (!validInput);
         }
       }
         
