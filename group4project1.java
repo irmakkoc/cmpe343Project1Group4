@@ -16,9 +16,11 @@ public class group4project1 {
                     break;
                 case "B":
                     matrixOperations();
+                    clearConsole();
                     break;
                 case "C":
                     textEncryptionDecryption(scanner);
+                    clearConsole();
                     break;
                 case "D":
                     ticTacToe();
@@ -32,7 +34,6 @@ public class group4project1 {
             }
         }
         scanner.close();
-        clearConsole();
     }
 
     public static void printMenu() {
@@ -114,7 +115,6 @@ public class group4project1 {
     continueCalculating = false;
   }
   }
-clearConsole();
 }
 
 public static void sortArray(double[] array){
@@ -215,7 +215,6 @@ public static double harmonicMeanHelper(double[] array, int size, int index) {
                     break;
             }
         }
-        clearConsole();
     }
 
     public static void TransposeMatrix() {
